@@ -1,0 +1,16 @@
+# local .terraform dir
+.terraform/*
+**/.terraform*/
+# tf state files 
+**/*.tfstate
+**/*.tfstate.*
+
+# tf variable files, may include sensitive data 
+#.tfvars
+# lock file hcl 
+**/*.lock.hcl
+#terraform-docs
+tfdoc.md
+#chart values 
+#loki-stack-value.yaml
+#prom-stack-values.yaml
