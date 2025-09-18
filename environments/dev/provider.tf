@@ -5,11 +5,12 @@ terraform {
       version = ">= 6.8"
     }
   }
-    cloud {
+
+  backend "remote" {
     organization = "sobeam-project-supcom"
 
     workspaces {
-      name = "sobeam-infrastructure-supcom"
+      name = "sobeam-infrastructure-supcom-dev"
     }
   }
 }
