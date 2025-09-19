@@ -6,11 +6,11 @@ terraform {
     }
   }
 
-  backend "remote" {
+  /*backend "remote" {
     organization = "sobeam-project-supcom"
 
     workspaces {
       name = "sobeam-infrastructure-supcom-prod"
     }
-  }
+  }*/
 }
