@@ -17,7 +17,7 @@ terraform {
   }
 
 
-  /*backend "remote" {
+  /*cloud {
     organization = "sobeam-project-supcom"
 
     workspaces {
