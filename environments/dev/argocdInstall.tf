@@ -3,8 +3,11 @@ provider "kubectl" {
   host                   = data.aws_eks_cluster.dev-eks-cluster.endpoint
   token                  = data.aws_eks_cluster_auth.dev-eks-cluster.token
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.dev-eks-cluster.certificate_authority.0.data)
+  #cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority)
 
 }
+
+
 
 data "kubectl_file_documents" "namespace" {
   content = file("../argocd/manifests/namespace.yaml")
@@ -16,7 +19,7 @@ data "kubectl_file_documents" "argocd" {
 
 resource "kubectl_manifest" "namespace" {
   depends_on = [
-    module.eks.cluster_id
+    module.eks.cluster_name
   ]
   count              = length(data.kubectl_file_documents.namespace.documents)
   yaml_body          = element(data.kubectl_file_documents.namespace.documents, count.index)
