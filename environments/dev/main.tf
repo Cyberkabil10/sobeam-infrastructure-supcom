@@ -11,10 +11,11 @@ provider "kubernetes" {
 }
 
 data "aws_eks_cluster" "dev-eks-cluster" {
-  name = module.eks.cluster_id
+  name = module.eks.cluster_name
 }
+
 data "aws_eks_cluster_auth" "dev-eks-cluster" {
-  name = module.eks.cluster_id
+  name = data.aws_eks_cluster.dev-eks-cluster.name
 }
 
 module "vpc" {
