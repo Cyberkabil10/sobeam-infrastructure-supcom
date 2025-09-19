@@ -13,7 +13,7 @@ provider "kubernetes" {
 
 data "aws_eks_cluster" "dev-eks-cluster" {
   name = module.eks.cluster_name
-    # Add explicit dependency
+  # Add explicit dependency
   depends_on = [module.eks]
 }
 
