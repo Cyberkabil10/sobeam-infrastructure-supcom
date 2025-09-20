@@ -17,11 +17,11 @@ terraform {
   }
 
 
-  /*cloud {
+  cloud {
     organization = "sobeam-project-supcom"
 
     workspaces {
       name = "sobeam-infrastructure-supcom-dev"
     }
-  }*/
+  }
 }

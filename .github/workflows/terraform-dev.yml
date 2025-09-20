@@ -1,0 +1,42 @@
+name: 'Terraform Dev'
+
+on:
+  push:
+    branches: ["dev-infra"]
+  pull_request:
+    branches: ["dev-infra"]
+
+permissions:
+  contents: read
+
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+    environment: development
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+    - name: Terraform Init
+      run: terraform init
+      working-directory: ./environments/dev
+
+    - name: Terraform Validate
+      run: terraform validate
+      working-directory: ./environments/dev
+
+    - name: Terraform Plan
+      run: terraform plan -var-file="terraform.tfvars"
+      working-directory: ./environments/dev
+
+    - name: Terraform Apply
+      if: github.ref == 'refs/heads/dev-infra'
+      run: terraform apply -auto-approve -var-file="terraform.tfvars"
+      working-directory: ./environments/dev
