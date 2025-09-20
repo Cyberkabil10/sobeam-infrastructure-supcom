@@ -37,6 +37,6 @@ jobs:
       working-directory: ./environments/dev
 
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/dev'
+      if: github.ref == 'refs/heads/dev-infra'
       run: terraform apply -auto-approve -var-file="terraform.tfvars"
       working-directory: ./environments/dev
