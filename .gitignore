@@ -11,6 +11,9 @@
 **/*.lock.hcl
 #terraform-docs
 tfdoc.md
+pre-commit.exe
+*/.pre-commit-config.yaml
+
 #chart values 
 #loki-stack-value.yaml
 #prom-stack-values.yaml
