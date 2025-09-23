@@ -1,0 +1,56 @@
+repos:
+  # --- TFSEC ---
+  - repo: https://github.com/aquasecurity/tfsec
+    rev: v1.28.14  # Latest stable version
+    hooks:
+      - id: tfsec
+        args:
+          # Exclude certain rules
+          #- --exclude=aws-ec2-no-public-ingress-sgr,aws-ec2-no-public-egress-sgr,aws-iam-no-policy-wildcards
+          # Ignore downloaded modules (prevents scanning external modules)
+          - --exclude-downloaded-modules
+
+  # --- CHECKOV ---
+  - repo: https://github.com/bridgecrewio/checkov
+    rev: 3.2.471  # Latest stable version
+    hooks:
+      - id: checkov
+        args:
+          # Skip certain checks
+          - --quiet
+          - --compact
+          - --skip-check=CKV2_AWS_5
+          - --skip-check=CKV2_AWS_12
+          - --skip-check=CKV2_AWS_19  # Temporary skip
+          - --skip-check=CKV_AWS_24
+          - --skip-check=CKV_AWS_260
+          - --skip-check=CKV_AWS_41
+          - --skip-check=CKV_AWS_290
+          - --skip-check=CKV_AWS_355
+          - --skip-check=CKV_K8S_21
+          - --skip-check=CKV_K8S_21
+          - --skip-check=CKV_K8S_155
+          - --skip-check=CKV_K8S_156
+          - --skip-check=CKV_K8S_157
+          - --skip-check=CKV_K8S_158
+          - --skip-check=CKV_K8S_49
+          - --skip-check=CKV_K8S_10
+          - --skip-check=CKV_K8S_11
+          - --skip-check=CKV_K8S_8
+          - --skip-check=CKV_K8S_43
+          - --skip-check=CKV_K8S_13
+          - --skip-check=CKV_K8S_12
+          - --skip-check=CKV_K8S_9
+          - --skip-check=CKV_K8S_29
+          - --skip-check=CKV_K8S_40
+          - --skip-check=CKV_K8S_31
+          - --skip-check=CKV_K8S_38
+          - --skip-check=CKV_K8S_15
+          - --skip-check=CKV_K8S_22
+          - --skip-check=CKV2_K8S_5
+          - --skip-check=CKV_K8S_35
+          - --skip-check=CKV_K8S_14                  
+          - --skip-check=CKV_TF_1
+          - --skip-check=CKV_TF_2          
+          # Exclude downloaded modules
+          - --skip-path="environments/prod/argocd/manifests"
