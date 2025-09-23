@@ -2,6 +2,25 @@ provider "aws" {
   region = var.aws_region
 }
 
+provider "kubernetes" {
+  #load_config_file  = "false"
+  host                   = data.aws_eks_cluster.prod-eks-cluster.endpoint
+  token                  = data.aws_eks_cluster_auth.prod-eks-cluster.token
+  cluster_ca_certificate = base64decode(data.aws_eks_cluster.prod-eks-cluster.certificate_authority.0.data)
+
+}
+
+
+data "aws_eks_cluster" "prod-eks-cluster" {
+  name = module.eks.cluster_name
+  # Add explicit dependency
+  depends_on = [module.eks]
+}
+
+data "aws_eks_cluster_auth" "prod-eks-cluster" {
+  name = data.aws_eks_cluster.prod-eks-cluster.name
+}
+
 module "vpc" {
   source = "../../modules/vpc"
 
@@ -19,7 +38,7 @@ module "vpc" {
 
 module "eks" {
   source = "../../modules/eks"
-  
+
   cluster_name    = "prod-eks-cluster"
   cluster_version = "1.33"
   vpc_id          = module.vpc.vpc_id
@@ -36,7 +55,7 @@ module "eks" {
 }
 
 module "ecr" {
-  source = "../../modules/ecr"
+  source    = "../../modules/ecr"
   repo_name = "sobeam-prod"
 
   tags = {
