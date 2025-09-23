@@ -18,7 +18,9 @@ data "aws_eks_cluster" "prod-eks-cluster" {
 }
 
 data "aws_eks_cluster_auth" "prod-eks-cluster" {
-  name = data.aws_eks_cluster.prod-eks-cluster.name
+  #name = data.aws_eks_cluster.prod-eks-cluster.name
+  name       = module.eks.cluster_name
+  depends_on = [module.eks]
 }
 
 module "vpc" {
