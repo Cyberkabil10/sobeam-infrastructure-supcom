@@ -1,5 +1,5 @@
 provider "helm" {
-  kubernetes {
+  kubernetes = {
     host                   = data.aws_eks_cluster.dev-eks-cluster.endpoint
     token                  = data.aws_eks_cluster_auth.dev-eks-cluster.token
     cluster_ca_certificate = base64decode(
@@ -27,7 +27,7 @@ resource "helm_release" "cert_manager" {
   namespace        = "cert-manager"
   create_namespace = true
   version          = "v1.18.2"
-  set {
+  set = {
     name  = "installCRDs"
     value = "true"
   }
