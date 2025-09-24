@@ -1,7 +1,7 @@
 provider "helm" {
   kubernetes = {
-    host                   = data.aws_eks_cluster.dev-eks-cluster.endpoint
-    token                  = data.aws_eks_cluster_auth.dev-eks-cluster.token
+    host  = data.aws_eks_cluster.dev-eks-cluster.endpoint
+    token = data.aws_eks_cluster_auth.dev-eks-cluster.token
     cluster_ca_certificate = base64decode(
       data.aws_eks_cluster.dev-eks-cluster.certificate_authority.0.data
     )
@@ -27,10 +27,12 @@ resource "helm_release" "cert_manager" {
   namespace        = "cert-manager"
   create_namespace = true
   version          = "v1.18.2"
-  set = {
-    name  = "installCRDs"
-    value = "true"
-  }
+  set = [
+    {
+      name  = "installCRDs"
+      value = "true"
+    }
+  ]
   depends_on = [
     module.eks.cluster_name
   ]
