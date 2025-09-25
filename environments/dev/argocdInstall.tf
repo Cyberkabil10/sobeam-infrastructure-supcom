@@ -3,6 +3,19 @@ provider "kubectl" {
   host                   = data.aws_eks_cluster.dev-eks-cluster.endpoint
   token                  = data.aws_eks_cluster_auth.dev-eks-cluster.token
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.dev-eks-cluster.certificate_authority.0.data)
+  # Add exec configuration for better compatibility
+  exec {
+    api_version = "client.authentication.k8s.io/v1beta1"
+    command     = "aws"
+    args = [
+      "eks",
+      "get-token",
+      "--cluster-name",
+      data.aws_eks_cluster.dev-eks-cluster.name,
+      "--region",
+      var.aws_region
+    ]
+  }
 
 }
 
