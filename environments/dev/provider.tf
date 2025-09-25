@@ -14,10 +14,15 @@ terraform {
       source  = "hashicorp/helm"
       version = "3.0.2"
     }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "2.38.0"
+    }
   }
 
 
   cloud {
+
     organization = "sobeam-project-supcom"
 
     workspaces {
