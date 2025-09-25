@@ -21,12 +21,12 @@ terraform {
   }
 
 
-  cloud { 
-    
-    organization = "sobeam-project-supcom" 
+  cloud {
 
-    workspaces { 
-      name = "sobeam-infrastructure-supcom-dev" 
-    } 
+    organization = "sobeam-project-supcom"
+
+    workspaces {
+      name = "sobeam-infrastructure-supcom-dev"
+    }
   }
 }

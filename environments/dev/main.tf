@@ -23,7 +23,7 @@ data "aws_eks_cluster_auth" "dev-eks-cluster" {
 }
 
 module "vpc" {
-  source = "../../modules/vpc"
+  source = "./modules/vpc"
 
   vpc_name           = var.vpc_name
   vpc_cidr_block     = var.vpc_cidr_block
@@ -38,7 +38,7 @@ module "vpc" {
 }
 
 module "eks" {
-  source = "../../modules/eks"
+  source = "./modules/eks"
 
   cluster_name    = "dev-eks-cluster"
   cluster_version = "1.33"
@@ -56,7 +56,7 @@ module "eks" {
 }
 
 module "ecr" {
-  source    = "../../modules/ecr"
+  source    = "./modules/ecr"
   repo_name = "sobeam-dev"
 
   tags = {
